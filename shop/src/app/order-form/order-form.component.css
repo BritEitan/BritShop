@@ -1,0 +1,32 @@
+.order-elements{
+  height: 500px;
+}
+.customer-card{
+  min-width: 300px; max-width: 33%;
+}
+.cart-card{
+  min-width: 300px;
+}
+.shopping-list{
+  z-index: 1;
+}
+.product-img{
+  width: 100px;
+}
+.product-title{
+  width: 250px;
+  height: 20px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  direction: rtl;
+}
+.quantity{
+  width: 80px;
+}
+.total{
+  z-index: 2;
+}
+.submit{
+  width: 300px;
+}

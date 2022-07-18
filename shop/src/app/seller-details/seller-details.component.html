@@ -1,0 +1,18 @@
+<div class="card m-auto mt-3" style="max-width: 50%;" *ngIf="vendor">
+  <img src="{{ vendor.image_url }}" class="card-img-top m-auto" style="width: 300px" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{vendor.display_name}}</h5>
+    <p class="card-text">Contact Information</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Email: {{vendor.contact_email}}</li>
+    <li class="list-group-item">Tel.: {{vendor.contact_phone}}</li>
+    <li class="list-group-item m-auto">
+      <iframe [src]="vendor.google_location | safe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </li>
+  </ul>
+  <div class="card-body m-auto">
+    <a href="#" class="card-link btn btn-outline-primary">Go Back</a>
+  </div>
+</div>

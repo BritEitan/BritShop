@@ -1,0 +1,14 @@
+<div class="container card text-center m-auto mt-3">
+  <div class="card-header">
+    Customer Login
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Please Enter Your Credentials</h5>
+    <input [(ngModel)]="email" type="email" class="form-control" placeholder="Email Address" aria-label="email" aria-describedby="Username">
+    <input [(ngModel)]="password" type="password" class="form-control mt-3" placeholder="Password" aria-label="password" aria-describedby="Password">
+    <button (click)="onSubmit()" class="login-button btn btn-primary btn-lg mt-4" type="submit">Login</button>
+  </div>
+  <div class="card-footer text-muted">
+    <a class="signup d-block mt-1" href="/signup">Don't have a customer profile? Sign Up Now!</a>
+  </div>
+</div>

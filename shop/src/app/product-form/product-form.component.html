@@ -1,0 +1,43 @@
+<div class="card m-auto m-5" style="max-width: 400px;" *ngIf="product || mode !=='VIEW'">
+  <img src="{{product.image_url}}" class="rounded card-img-top">
+  <input placeholder="Image URL" *ngIf="mode !== 'VIEW'" [(ngModel)]="product.image_url" id="img" type="text" aria-label="Last name" class="form-control h-25">
+  <div *ngIf="mode == 'VIEW'" class="card-body">
+    <h5 class="card-title">{{product.title}}</h5>
+    <p class="card-text">{{product.category}} -> {{product.sub_category}}</p>
+  </div>
+  <div *ngIf="mode !== 'VIEW' && category_data.length > 0" class="card-body">
+    <input [(ngModel)]="product.title" id="title" type="text" placeholder="Title" aria-label="Last name" class="form-control h-25">
+    <p class="card-text mt-3">
+      <select (change)="autoSelectFirstSubCategory()" class="form-select w-25 d-inline" style="height: 60px;  font-size: 12px;" id="categories" aria-label="Floating label select example" [(ngModel)]="product.category">
+        <option *ngFor="let category_item of category_data">{{category_item.name}}</option>
+      </select> ->
+      <select class="form-select w-25 d-inline" style="height: 60px ; font-size: 12px" id="subcategories" aria-label="Floating label select example"  [(ngModel)]="product.sub_category">
+        <option *ngFor="let sub_category of getSubCategories()">{{sub_category.name}}</option>
+      </select>
+    </p>
+  </div>
+  <ul *ngIf="mode == 'VIEW'" class="list-group list-group-flush">
+    <li class="list-group-item">Made By: {{product.brand}}</li>
+    <li class="list-group-item">{{product.price}}₪</li>
+  </ul>
+  <ul *ngIf="mode !== 'VIEW' && brand_data.length > 0" class="list-group list-group-flush">
+    <li class="list-group-item">Made By:
+        <div class="form-floating" style="width: 200px;">
+        <select class="form-select" style="height: 60px;  font-size: 12px;" id="brands" aria-label="Floating label select example" [(ngModel)]="product.brand">
+          <option *ngFor="let brand_item of brand_data">{{brand_item._id}}</option>
+        </select>
+        <label for="brands">Brands</label>
+    </div>
+    </li>
+    <li class="list-group-item">
+      <input min="0" [(ngModel)]="product.price" id="price" type="number" aria-label="First name" class="form-control h-25 w-25 d-inline"> ₪
+    </li>
+  </ul>
+
+  <div class="card-body m-auto">
+    <button [disabled]="isActionDisabled()" (click)="onClick()" class="card-link btn btn-outline-primary">
+      {{ mode == 'VIEW' ? 'Add To Bag' : 'Save Changes'}}
+    </button>
+    <a *ngIf="mode !== 'CREATE'" [routerLink]="['/seller/'+ product.vendor['$id']]" class="card-link btn btn-outline-primary">Seller Information</a>
+  </div>
+</div>

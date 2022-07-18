@@ -1,0 +1,10 @@
+.container{
+  width: 500px;
+}
+.login-button{
+  width: 300px
+}
+.signup{
+  font-style: italic;
+  font-size: 12px;
+}

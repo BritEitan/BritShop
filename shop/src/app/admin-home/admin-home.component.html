@@ -1,0 +1,13 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item" (click)="mode = 'PRODUCTS'">
+    <a class="nav-link">Products</a>
+  </li>
+  <li class="nav-item" (click)="router.navigateByUrl('admin/product/create')">
+    <a class="nav-link">Create New Product</a>
+  </li>
+  <li class="nav-item" (click)="mode = 'ORDERS'" >
+    <a class="nav-link">Orders</a>
+  </li>
+</ul>
+<app-product-search *ngIf="mode == 'PRODUCTS'" [admin_mode]="true"> </app-product-search>
+<app-order-search *ngIf="mode == 'ORDERS'"></app-order-search>

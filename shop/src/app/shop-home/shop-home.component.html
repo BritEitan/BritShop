@@ -1,0 +1,31 @@
+<nav class="navbar bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdnLJK4CDF_WXUDFd04REKkK_XEPGYRHF19g&usqp=CAU" alt="" width="30" height="24" class="d-inline-block align-text-top">Shop
+    </a>
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" (click)="navigate('')">Browse</a>
+      </li>
+      <li class="nav-item">
+
+        <a (click)="navigate('order-form')" class="nav-link btn btn-primary position-relative">My Bag
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger mt-2">
+            {{shoppingBagService.shoppingBag.length}}
+              <span class="visually-hidden">1</span>
+          </span>
+        </a>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="authService.user_info && authService.user_info.is_admin" (click)="navigate('stats')" >Stats</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="authService.user_info && authService.user_info.is_admin" (click)="navigate('admin')" >Admin Console</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="onLogout()" href="login">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>

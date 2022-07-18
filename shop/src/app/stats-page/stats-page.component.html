@@ -1,0 +1,33 @@
+<div class="d-flex flex-row gap-5 w-75 mx-auto justify-content-center align-items-start pt-3">
+    <div>
+      <h5>Sales By Date</h5>
+      <div id="my_dataviz"></div>
+    </div>
+  <div>      <h5>Top Selling Items</h5>
+  <table class="table align-middle">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Category</th>
+      <th scope="col">Sub Category</th>
+      <th scope="col">Sales</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let seller of topSellers; let index = index">
+      <th scope="row">{{index + 1}}</th>
+      <td>{{seller.title}}</td>
+      <td>{{seller.brand}}</td>
+      <td>{{seller.category}}</td>
+      <td>{{seller.sub_category}}</td>
+      <td>{{seller.sales}}</td>
+    </tr>
+    </tbody>
+  </table>
+  </div>
+
+</div>
+
+

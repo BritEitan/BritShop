@@ -1,0 +1,90 @@
+<div class="input-group mb-3 mx-auto mt-3" style="max-width: 30%">
+  <input [(ngModel)]="search_string" type="text" class="form-control" placeholder="Search anything" aria-label="Search anything" aria-describedby="basic-addon2">
+  <span (click)="submitSearch()" class="input-group-text" id="basic-addon2" accesskey="">Go!</span>
+</div>
+<ul id="filters" class="d-flex flex-row justify-content-center align-items-center w-75 mx-auto" style="gap: 10px;">
+  <div class="form-floating" style="width: 200px;">
+    <select class="form-select" style="height: 60px;  font-size: 12px;" id="brands" aria-label="Floating label select example" [(ngModel)]="brand">
+      <option disabled selected value> -- select an option -- </option>
+      <option *ngFor="let brand_item of brand_data">{{brand_item._id}}</option>
+    </select>
+    <label for="brands">Brands</label>
+  </div>
+  <div class="form-floating" style="width: 200px;">
+    <select class="form-select" style="height: 60px;  font-size: 12px;" id="categories" aria-label="Floating label select example" [(ngModel)]="category">
+      <option disabled selected value> -- select an option -- </option>
+      <option *ngFor="let category_item of category_data">{{category_item.name}}</option>
+    </select>
+    <label for="categories">Categories</label>
+  </div>
+  <div class="form-floating" style="width: 250px; ">
+    <select class="form-select" style="height: 60px ; font-size: 12px" id="subcategories" aria-label="Floating label select example"  [(ngModel)]="sub_category">
+      <option disabled selected value> -- select an option -- </option>
+      <option *ngFor="let sub_category of getSubCategories()">{{sub_category.name}}</option>
+    </select>
+    <label for="subcategories">Sub-Categories</label>
+  </div>
+  <div class="nav-item">
+    <span class="h5 w-auto">Price</span>
+    <div class="d-flex flex-row align-items-center gap-2">
+    <label for="price-min" class="form-label">Min</label>
+    <input [(ngModel)]="price_min" id="price-min" type="number" aria-label="First name" class="form-control h-25">
+    <label  for="price-max" class="form-label">Max</label>
+    <input [(ngModel)]="price_max" id="price-max" type="number" aria-label="Last name" class="form-control h-25">
+    </div>
+  </div>
+
+</ul>
+<div class="d-flex flex-row justify-content-center align-items-center flex-wrap gap-3 flex-grow-1 w-75 m-auto">
+  <div *ngFor="let product of product_results" class="card pt-3 pb-3" style="width: 300px;">
+    <div style="height: 80px">
+      <h5 class="position-relative d-block text-center">{{ product.title }}</h5>
+      <div class="text-center">{{ product.price}}₪</div>
+    </div>
+    <img src="{{product.image_url}}" class="rounded mt-1 mx-auto d-block p-1" alt="..."
+    style="height: 200px">
+    <div class="text-center">{{product.brand}}</div>
+    <div class="btn-group d-block mx-auto" style="width: fit-content" role="group" aria-label="Actions">
+
+      <div class="d-inline" (click)="shoppingBagService.addProductToShoppingBag(product)" >
+          <label *ngIf="!admin_mode" class="btn btn-outline-primary">Add To Bag</label>
+      </div>
+      <div class="d-inline">
+        <label *ngIf="admin_mode" (click)="router.navigateByUrl('admin/product/'+ product._id +'/edit')" class="btn btn-outline-primary">Edit Product</label>
+      </div>
+
+
+      <div class="d-inline" (click)="removeProduct(product._id)" >
+          <label *ngIf="admin_mode" class="btn btn-outline-primary bg-danger">Remove Product</label>
+      </div>
+
+      <a [routerLink]="'/product/' + product._id">
+        <span *ngIf="!admin_mode" class="btn btn-outline-primary">Product Details</span>
+      </a>
+    </div>
+  </div>
+</div>
+<nav aria-label="Page navigation example" class="m-auto mt-4" style="width: fit-content;">
+  <ul class="pagination">
+    <li *ngIf="current_page > 1" (click)="goBack()" class="page-item"><a class="page-link">Previous</a></li>
+    <li *ngIf="current_page < total_pages" class="page-item"><a class="page-link" (click)="goToNextPage()">Next</a></li>
+  </ul>
+</nav>
+<div *ngIf="!admin_mode && showToast" class="toast show position-absolute top-0 ms-2" style="margin-top: 50px; cursor: pointer"
+     >
+  <h5 class="pt-3 ps-3 d-inline-block">Hottest Item!</h5>
+  <button (click)="showToast = false" type="button" class="btn-close float-end p-3 m-1" data-bs-dismiss="toast" aria-label="Close"></button>
+  <div (click)="router.navigateByUrl('product/' + topSellingItem._id)" class="toast-header d-flex flex-row justify-content-center align-items-center">
+    <img src="{{topSellingItem.image_url}}" class="rounded me-2" style="width: 50px">
+    <strong class="me-auto">{{topSellingItem.title}}</strong>
+    <strong class="me-auto">{{topSellingItem.price}}₪</strong>
+    <small>{{topSellingItem.brand}}</small>
+  </div>
+  <div (click)="router.navigateByUrl('product/' + topSellingItem._id)" class="toast-body">
+    Click Here To View
+  </div>
+</div>
+
+
+
+

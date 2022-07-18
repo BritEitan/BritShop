@@ -1,0 +1,55 @@
+<div class="input-group mb-3 mx-auto mt-3" style="max-width: 30%">
+  <input [(ngModel)]="search_string" type="text" class="form-control" placeholder="Search anything" aria-label="Search anything" aria-describedby="basic-addon2">
+  <span (click)="submitSearch()" class="input-group-text" id="basic-addon2" accesskey="">Go!</span>
+</div>
+<ul id="filters" class="d-flex flex-row justify-content-center align-items-center w-75 mx-auto" style="gap: 10px;">
+  <div class="nav-item">
+    <span class="h5 w-auto">Total Order Price</span>
+    <div class="d-flex flex-row align-items-center gap-2">
+      <label for="price-min" class="form-label">Min</label>
+      <input [(ngModel)]="total_order_min" id="price-min" type="number" aria-label="First name" class="form-control h-25">
+      <label  for="price-max" class="form-label">Max</label>
+      <input [(ngModel)]="total_order_max" id="price-max" type="number" aria-label="Last name" class="form-control h-25">
+    </div>
+    <span class="h5 w-auto mt-3">Order Date</span>
+    <div class="d-flex flex-row align-items-center gap-2 ">
+      <label for="price-min" class="form-label">Min</label>
+      <input [(ngModel)]="date_min" id="date-min" type="date" aria-label="First name" class="form-control h-25">
+      <label  for="price-max" class="form-label">Max</label>
+      <input [(ngModel)]="date_max" id="date-max" type="date" aria-label="Last name" class="form-control h-25">
+    </div>
+  </div>
+</ul>
+
+
+<table class="table w-75 m-auto" style="vertical-align: center">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Email</th>
+    <th scope="col">Address</th>
+    <th scope="col">Total ₪</th>
+    <th scope="col">Actions</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let order of order_results">
+    <th scope="row">{{order._id}}</th>
+    <td>{{order.customer}}</td>
+    <td>{{order.shipping.address}}, {{order.shipping.city}}, {{order.shipping.postal_code}}</td>
+    <td>{{order.total_price}}</td>
+    <td>
+      <button type="button" class="btn btn-success" (click)="router.navigateByUrl('admin/order/' + order._id)">Edit Order</button>
+      <button type="button" (click)="removeProduct(order._id)" class="btn btn-danger">Remove Order</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<nav aria-label="Page navigation example" class="m-auto mt-4" style="width: fit-content;">
+  <ul class="pagination">
+    <li *ngIf="current_page > 1" (click)="goBack()" class="page-item"><a class="page-link">Previous</a></li>
+    <li *ngIf="current_page < total_pages" class="page-item"><a class="page-link" (click)="goToNextPage()">Next</a></li>
+  </ul>
+</nav>
